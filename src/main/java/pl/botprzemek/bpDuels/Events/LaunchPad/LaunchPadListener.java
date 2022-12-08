@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 import pl.botprzemek.bpDuels.Game.GameManager;
+import pl.botprzemek.bpDuels.Game.GameState;
 
 public class LaunchPadListener implements Listener {
 
@@ -21,6 +22,8 @@ public class LaunchPadListener implements Listener {
 
     @EventHandler
     public void onPlayerStep(PlayerMoveEvent event) {
+
+        if (!gameManager.gameState.equals(GameState.ACTIVE)) return;
 
         Location location = event.getPlayer().getLocation();
 

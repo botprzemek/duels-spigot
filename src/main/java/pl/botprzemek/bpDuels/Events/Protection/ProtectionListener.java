@@ -4,51 +4,53 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.util.Vector;
 import pl.botprzemek.bpDuels.Game.GameManager;
 import pl.botprzemek.bpDuels.Game.GameState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProtectionListener implements Listener {
 
     private GameManager gameManager;
 
+    private List<EntityDamageEvent.DamageCause> negativeDamageCauses = new ArrayList<>();
+
     public ProtectionListener(GameManager gameManager) {
 
         this.gameManager = gameManager;
 
+        this.negativeDamageCauses.add(EntityDamageEvent.DamageCause.valueOf("FALL"));
+
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageEvent event) {
+    public void onPlayerFall(EntityDamageEvent event) {
 
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player player)) return;
 
-        Player player = (Player) event.getEntity();
+        if (!event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) event.setCancelled(true);
 
-        switch (event.getCause()) {
+        if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
 
-            case FALL:
+        if (gameManager.getLaunchPadManager().canNegateDamage(player)) return;
 
-                if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
+        event.setCancelled(true);
 
-                if (gameManager.getLaunchPadManager().canNegateDamage(player)) return;
+        gameManager.getLaunchPadManager().removeLaunchedPlayer(player);
 
-                event.setCancelled(true);
+    }
 
-                gameManager.getLaunchPadManager().removeLaunchedPlayer(player);
+    @EventHandler
+    public void onPlayerArrowHit(ProjectileHitEvent event) {
 
-                break;
+        if (event.getHitEntity() instanceof Player) event.setCancelled(true);
 
-            case ENTITY_ATTACK:
+        Player player = (Player) event.getHitEntity();
 
-                if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
-
-                break;
-
-            default:
-
-                break;
-
-        }
+        player.setVelocity(new Vector(0, 5, 0));
 
     }
 

@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import pl.botprzemek.bpDuels.Game.GameManager;
+import pl.botprzemek.bpDuels.Game.GameState;
 
 public class BlockListener implements Listener {
 
@@ -19,7 +21,7 @@ public class BlockListener implements Listener {
     }
 
     @EventHandler
-    public void onBreakBlock(BlockBreakEvent event) {
+    public void onBlockBreak(BlockBreakEvent event) {
 
         Block block = event.getBlock();
 
@@ -27,7 +29,20 @@ public class BlockListener implements Listener {
 
         if (!player.getGameMode().equals(GameMode.SURVIVAL)) return;
 
+        if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
+
         if (gameManager.getBlockManager().canBreak(block)) event.setCancelled(true);
+
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+
+        Player player = event.getPlayer();
+
+        if (!player.getGameMode().equals(GameMode.SURVIVAL)) return;
+
+        if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
 
     }
 
