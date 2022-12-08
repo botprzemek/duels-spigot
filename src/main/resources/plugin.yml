@@ -1,0 +1,27 @@
+name: bpDuels
+version: '0.1-BETA'
+authors: [botprzemek]
+website: 'https://www.github.com/botprzemek/bpDuels/'
+description: Duels plugin (1.18.2)
+main: pl.botprzemek.bpDuels.BpDuels
+api-version: '1.18'
+softdepend: [PlaceholderAPI, Oraxen]
+commands:
+  bpduels:
+    aliases: [bpd]
+    default: true
+    description: Main command for bpDuels plugin
+  start:
+    aliases: [s]
+    default: true
+    description: Start command for bpDuels plugin
+  active:
+    aliases: [a]
+    default: true
+    description: Active command for bpDuels plugin
+permissions:
+  bpduels.*:
+    description: Gives access to all bpDuels commands
+    children:
+      bpduels.admin: true
+      bpduels.start: true
