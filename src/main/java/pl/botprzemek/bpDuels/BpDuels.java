@@ -2,17 +2,11 @@ package pl.botprzemek.bpDuels;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.botprzemek.bpDuels.Commands.CommandsManager;
 import pl.botprzemek.bpDuels.Events.EventsManager;
 import pl.botprzemek.bpDuels.Game.GameManager;
 import pl.botprzemek.bpDuels.Utils.ConsoleStartup;
-
-import java.io.File;
-import java.io.IOException;
 
 public final class BpDuels extends JavaPlugin {
 
@@ -20,11 +14,7 @@ public final class BpDuels extends JavaPlugin {
 
     private BukkitAudiences adventure;
 
-    private File pluginConfigFile;
-
     private GameManager gameManager;
-
-    private static YamlConfiguration pluginConfig;
 
     private static MiniMessage mm = MiniMessage.miniMessage();
 
@@ -40,38 +30,10 @@ public final class BpDuels extends JavaPlugin {
 
     }
 
-    public static FileConfiguration getInstanceConfig(){
-
-        return pluginConfig;
-
-    }
-
-    public void loadInstanceConfig(){
-
-        pluginConfigFile = new File(getDataFolder(), "config.yml");
-
-        pluginConfig = new YamlConfiguration();
-
-        try {
-
-            pluginConfig.load(pluginConfigFile);
-
-        }
-
-        catch (IOException | InvalidConfigurationException e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
     @Override
     public void onEnable() {
 
         instance = this;
-
-        loadInstanceConfig();
 
         adventure = BukkitAudiences.create(this);
 

@@ -6,11 +6,11 @@ import org.bukkit.command.CommandSender;
 import pl.botprzemek.bpDuels.Game.GameManager;
 import pl.botprzemek.bpDuels.Game.GameState;
 
-public class ActiveCommand implements CommandExecutor {
+public class ActivateCommand implements CommandExecutor {
 
     private GameManager gameManager;
 
-    public ActiveCommand(GameManager gameManager) {
+    public ActivateCommand(GameManager gameManager) {
 
         this.gameManager = gameManager;
 

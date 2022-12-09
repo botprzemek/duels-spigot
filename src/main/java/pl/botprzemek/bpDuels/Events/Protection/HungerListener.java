@@ -18,6 +18,8 @@ public class HungerListener implements Listener {
     @EventHandler
     public void onHungerChange(FoodLevelChangeEvent event) {
 
+        if (event.getFoodLevel() != 20) event.setFoodLevel(20);
+
         event.setCancelled(true);
 
     }

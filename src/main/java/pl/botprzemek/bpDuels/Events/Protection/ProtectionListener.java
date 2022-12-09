@@ -9,20 +9,13 @@ import org.bukkit.util.Vector;
 import pl.botprzemek.bpDuels.Game.GameManager;
 import pl.botprzemek.bpDuels.Game.GameState;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ProtectionListener implements Listener {
 
     private GameManager gameManager;
 
-    private List<EntityDamageEvent.DamageCause> negativeDamageCauses = new ArrayList<>();
-
     public ProtectionListener(GameManager gameManager) {
 
         this.gameManager = gameManager;
-
-        this.negativeDamageCauses.add(EntityDamageEvent.DamageCause.valueOf("FALL"));
 
     }
 
@@ -31,7 +24,7 @@ public class ProtectionListener implements Listener {
 
         if (!(event.getEntity() instanceof Player player)) return;
 
-        if (!event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) event.setCancelled(true);
+        if (gameManager.getProtectionManager().canNegateDamage(event.getCause())) event.setCancelled(true);
 
         if (!gameManager.gameState.equals(GameState.ACTIVE)) event.setCancelled(true);
 

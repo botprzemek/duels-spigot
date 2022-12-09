@@ -5,9 +5,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import pl.botprzemek.bpDuels.BpDuels;
+import pl.botprzemek.bpDuels.Config.ConfigManager;
 import pl.botprzemek.bpDuels.Events.Block.BlockManager;
 import pl.botprzemek.bpDuels.Events.LaunchPad.LaunchPadManager;
+import pl.botprzemek.bpDuels.Events.Protection.ProtectionManager;
+import pl.botprzemek.bpDuels.Game.Profile.ProfileManager;
+import pl.botprzemek.bpDuels.Game.Spawn.SpawnManager;
 import pl.botprzemek.bpDuels.Game.Team.TeamManager;
+
+import java.util.Set;
 
 public class GameManager {
 
@@ -17,7 +23,15 @@ public class GameManager {
 
     private LaunchPadManager launchPadManager;
 
+    private ProtectionManager protectionManager;
+
     private TeamManager teamManager;
+
+    private SpawnManager spawnManager;
+
+    private ConfigManager configManager;
+
+    private ProfileManager profileManager;
 
     public GameState gameState = GameState.LOBBY;
 
@@ -27,7 +41,17 @@ public class GameManager {
 
         this.blockManager = new BlockManager();
 
+        this.configManager = new ConfigManager(instance);
+
+        configManager.loadConfigs();
+
+        this.profileManager = new ProfileManager(this);
+
         this.launchPadManager = new LaunchPadManager();
+
+        this.protectionManager = new ProtectionManager();
+
+        this.spawnManager = new SpawnManager();
 
     }
 
@@ -75,13 +99,15 @@ public class GameManager {
 
                 }
 
-                teamManager.createTeam("Team");
+                Team team = teamManager.createTeam("Team");
 
-                Bukkit.broadcastMessage("Created new team...");
+                Bukkit.broadcastMessage("Created new team... " + team.getDisplayName());
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
 
-                    teamManager.getTeam("Team").addEntry(player.getDisplayName());
+                    team.addEntry(player.getDisplayName());
+
+                    Bukkit.broadcastMessage("Added " + player.getDisplayName() + " to " + team.getDisplayName());
 
                 }
 
@@ -97,15 +123,23 @@ public class GameManager {
 
                 }
 
-                Team team = teamManager.getTeam("Team");
+                Team team1 = teamManager.getTeam("Team");
 
-                for (String playerName : team.getEntries()) {
+                Set<String> players = team1.getEntries();
+
+                int iteration = 0;
+
+                for (String playerName : players) {
 
                     Player player = Bukkit.getPlayer(playerName);
 
                     if (player != null && !(player.isOnline())) break;
 
-                    player.sendMessage("Activated... " + playerName + " is in " + team.getDisplayName());
+                    player.sendMessage("Activated... " + playerName + " is in " + team1.getDisplayName());
+
+                    spawnManager.prepareSpawn(player, iteration);
+
+                    iteration++;
 
                 }
 
@@ -133,13 +167,15 @@ public class GameManager {
 
     public void cleanUp() {
 
-        return;
+        configManager.saveConfigs();
+
+        profileManager.saveProfiles();
 
     }
 
-    public GameManager getGameManager() {
+    public BpDuels getInstanceManager() {
 
-        return this;
+        return instance;
 
     }
 
@@ -149,15 +185,39 @@ public class GameManager {
 
     }
 
+    public ConfigManager getConfigManager() {
+
+        return configManager;
+
+    }
+
     public LaunchPadManager getLaunchPadManager() {
 
         return launchPadManager;
 
     }
 
+    public ProtectionManager getProtectionManager() {
+
+        return protectionManager;
+
+    }
+
     public TeamManager getTeamManager() {
 
         return teamManager;
+
+    }
+
+    public SpawnManager getSpawnManager() {
+
+        return spawnManager;
+
+    }
+
+    public ProfileManager getProfileManager() {
+
+        return profileManager;
 
     }
 

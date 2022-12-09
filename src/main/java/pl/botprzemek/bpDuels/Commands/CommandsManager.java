@@ -9,7 +9,7 @@ public class CommandsManager {
 
         instance.getCommand("start").setExecutor(new StartCommand(gameManager));
 
-        instance.getCommand("active").setExecutor(new ActiveCommand(gameManager));
+        instance.getCommand("activate").setExecutor(new ActivateCommand(gameManager));
 
     }
 

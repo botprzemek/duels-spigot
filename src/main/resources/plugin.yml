@@ -15,10 +15,10 @@ commands:
     aliases: [s]
     default: true
     description: Start command for bpDuels plugin
-  active:
+  activate:
     aliases: [a]
     default: true
-    description: Active command for bpDuels plugin
+    description: Activate command for bpDuels plugin
 permissions:
   bpduels.*:
     description: Gives access to all bpDuels commands
