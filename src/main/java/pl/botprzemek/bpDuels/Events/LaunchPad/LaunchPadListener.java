@@ -25,6 +25,8 @@ public class LaunchPadListener implements Listener {
 
         if (!gameManager.gameState.equals(GameState.ACTIVE)) return;
 
+        if (gameManager.getProfileManager().getProfile(event.getPlayer()).getClasss() == null) event.setCancelled(true);
+
         Location location = event.getPlayer().getLocation();
 
         location.setY(location.getY()-1);

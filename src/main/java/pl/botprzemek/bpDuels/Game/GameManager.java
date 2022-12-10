@@ -121,6 +121,8 @@ public class GameManager {
 
                     Bukkit.broadcastMessage("Teams not created yet...");
 
+                    setGameState(GameState.LOBBY);
+
                     break;
 
                 }

@@ -1,5 +1,6 @@
 package pl.botprzemek.bpDuels.Commands;
 
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -60,6 +61,10 @@ public class ClassCommand implements CommandExecutor {
 
         }
 
+        double playerHealth = profile.getClasss().getArmorLevel().getMaxHealth();
+
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(playerHealth);
+        player.setHealth(playerHealth);
         player.sendMessage("You choose " + profile.getClasss().getClassName());
 
         return true;

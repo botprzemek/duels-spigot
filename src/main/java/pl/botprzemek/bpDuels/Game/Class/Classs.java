@@ -2,19 +2,23 @@ package pl.botprzemek.bpDuels.Game.Class;
 
 public enum Classs {
 
-    RONIN("Ronin"),
-    NETRUNNER("Netrunner"),
-    NOMAD("Nomad"),
-    TECHNIK("Technik"),
-    BUSINESSMAN("Businessman"),
-    FIXER("Fixer"),
-    JUGERNAUT("Jugernaut");
+    RONIN("Ronin", ArmorLevel.LIGHT),
+    NETRUNNER("Netrunner", ArmorLevel.LIGHT),
+    NOMAD("Nomad", ArmorLevel.HEAVY),
+    TECHNIK("Technik", ArmorLevel.MEDIUM),
+    BUSINESSMAN("Businessman", ArmorLevel.LIGHT),
+    FIXER("Fixer", ArmorLevel.LIGHT),
+    JUGERNAUT("Jugernaut", ArmorLevel.HEAVY);
 
     private String className;
 
-    Classs(String className) {
+    private ArmorLevel armorLevel;
+
+    Classs(String className, ArmorLevel armorLevel) {
 
         this.className = className;
+
+        this.armorLevel = armorLevel;
 
     }
 
@@ -39,6 +43,12 @@ public enum Classs {
     public String getRawClassName() {
 
         return className.toLowerCase();
+
+    }
+
+    public ArmorLevel getArmorLevel() {
+
+        return armorLevel;
 
     }
 
