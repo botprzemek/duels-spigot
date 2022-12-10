@@ -23,6 +23,8 @@ public class ConfigManager {
 
     public void loadConfigs() {
 
+        instance.getLogger().info("Loading configs...");
+
         for (Config config : configs) {
 
             config.loadConfig();
@@ -32,6 +34,8 @@ public class ConfigManager {
     }
 
     public void saveConfigs() {
+
+        instance.getLogger().info("Saving configs...");
 
         for (Config config : configs) {
 

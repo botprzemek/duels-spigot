@@ -7,11 +7,15 @@ import java.util.UUID;
 
 public class ProfileConfig extends Config {
 
+    BpDuels instance;
+
     public ProfileConfig(BpDuels instance) {
-        super(instance, "profiles.yaml");
+
+        super(instance, "profiles.yml");
+
+        this.instance = instance;
+
     }
-
-
 
     public Classs getClass(UUID playerUUID) {
 

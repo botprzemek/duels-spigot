@@ -22,7 +22,7 @@ public enum Classs {
 
         for (Classs classs : values()) {
 
-            if (classs.className.equalsIgnoreCase(classs.getRawClassName())) return classs;
+            if (name.equals(classs.getRawClassName())) return classs;
 
         }
 

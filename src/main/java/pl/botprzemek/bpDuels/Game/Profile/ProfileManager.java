@@ -38,6 +38,12 @@ public class ProfileManager {
 
         profiles.put(playerUUID, profile);
 
+        for (UUID playerUUID1 : profiles.keySet()) {
+
+            instance.getLogger().info(playerUUID1.toString());
+
+        }
+
         return profile;
 
     }
@@ -63,6 +69,8 @@ public class ProfileManager {
         for (UUID playerUUID : profiles.keySet()) {
 
             Profile profile = profiles.get(playerUUID);
+
+            instance.getLogger().info(profiles.get(playerUUID).toString() + ", " + profile.getClasss().getClassName());
 
             profileConfig.setClass(playerUUID, profile.getClasss());
 

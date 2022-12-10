@@ -11,6 +11,10 @@ public class CommandsManager {
 
         instance.getCommand("activate").setExecutor(new ActivateCommand(gameManager));
 
+        instance.getCommand("class").setExecutor(new ClassCommand(gameManager));
+
+        instance.getCommand("getclass").setExecutor(new GetClassCommand(gameManager));
+
     }
 
 }

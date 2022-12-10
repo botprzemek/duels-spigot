@@ -19,9 +19,20 @@ commands:
     aliases: [a]
     default: true
     description: Activate command for bpDuels plugin
+  class:
+    aliases: [c]
+    default: true
+    description: Class command for bpDuels plugin
+  getclass:
+    aliases: [g]
+    default: true
+    description: Get class command for bpDuels plugin
 permissions:
   bpduels.*:
     description: Gives access to all bpDuels commands
     children:
       bpduels.admin: true
       bpduels.start: true
+      bpduels.activate: true
+      bpduels.class: true
+      bpduels.getclass: true

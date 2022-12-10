@@ -47,6 +47,8 @@ public class GameManager {
 
         this.profileManager = new ProfileManager(this);
 
+        profileManager.loadProfiles();
+
         this.launchPadManager = new LaunchPadManager();
 
         this.protectionManager = new ProtectionManager();
@@ -167,9 +169,9 @@ public class GameManager {
 
     public void cleanUp() {
 
-        configManager.saveConfigs();
-
         profileManager.saveProfiles();
+
+        configManager.saveConfigs();
 
     }
 

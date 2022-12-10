@@ -32,7 +32,13 @@ public class JoinQuitListener implements Listener {
 
         if (profile == null) profile = profileManager.createProfile(player);
 
-        if (profile.getClasss() == null) player.sendMessage("You have not selected class");
+        if (profile.getClasss() == null) {
+
+            player.sendMessage("You have not selected class");
+
+            return;
+
+        }
 
         player.sendMessage("Your class is " + profile.getClasss().getClassName());
 

@@ -2,6 +2,7 @@ package pl.botprzemek.bpDuels.Events;
 
 import pl.botprzemek.bpDuels.BpDuels;
 import pl.botprzemek.bpDuels.Events.Block.BlockListener;
+import pl.botprzemek.bpDuels.Events.Chat.ChatListener;
 import pl.botprzemek.bpDuels.Events.JoinQuit.JoinQuitListener;
 import pl.botprzemek.bpDuels.Events.LaunchPad.LaunchPadListener;
 import pl.botprzemek.bpDuels.Events.Protection.HungerListener;
@@ -21,6 +22,8 @@ public class EventsManager {
         instance.getServer().getPluginManager().registerEvents(new HungerListener(gameManager), instance);
 
         instance.getServer().getPluginManager().registerEvents(new JoinQuitListener(gameManager), instance);
+
+        instance.getServer().getPluginManager().registerEvents(new ChatListener(gameManager), instance);
 
     }
 
